@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Goal;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateGoal;
+use Illuminate\Support\Facades\Auth;
 
 class GoalController extends Controller
 {
@@ -20,7 +21,7 @@ class GoalController extends Controller
         $goal->title = $request->title;
         $goal->due_date = $request->due_date;
 
-        $goal->save();
+        Auth::user()->goals()->save($goal);
 
         return redirect()->route('tasks.index', [
             'id' => $goal->id,

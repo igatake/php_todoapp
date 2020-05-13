@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Goal;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTask;
 use App\Http\Requests\EditTask;
 
@@ -14,7 +15,7 @@ class TaskController extends Controller
     public function index(int $id)
     {
         // 全てのGoalを取得する
-        $goals = Goal::all();
+        $goals = Auth::user()->goals()->get();
 
         // 選ばれたGoalを取得する
         $current_goal = Goal::find($id);
